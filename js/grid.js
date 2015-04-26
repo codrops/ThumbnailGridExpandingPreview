@@ -387,13 +387,15 @@ var Grid = (function() {
 					href : $itemEl.attr( 'href' ),
 					largesrc : $itemEl.data( 'largesrc' ),
 					title : $itemEl.data( 'title' ),
-					description : $itemEl.data( 'description' )
+					description : $itemEl.data( 'description' ),
+					href2 : $itemEl.attr( 'href2' )
 				};
 
 			this.$title.html( eldata.title );
 			this.$description.html( eldata.description );
 			if (settings.showVisitButton === true) {
 				this.$href.attr( 'href', eldata.href );
+				this.$href2.attr( 'href', eldata.href2 );
 			}
 
 			var self = this;
