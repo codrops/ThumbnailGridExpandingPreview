@@ -348,7 +348,8 @@ var Grid = (function() {
 			var detailAppends = [this.$title, this.$description];
 			if (settings.showVisitButton === true) {
 				this.$href = $( '<a href="#">Visit website</a>' );
-				detailAppends.push(this.$href);
+				this.$href2 = $( '<a href="#">PDF</a>' );
+				detailAppends.push(this.$href, this.$href2);
 			}
 			this.$details = $( '<div class="og-details"></div>' ).append(detailAppends);
 			this.$loading = $( '<div class="og-loading"></div>' );
@@ -387,13 +388,15 @@ var Grid = (function() {
 					href : $itemEl.attr( 'href' ),
 					largesrc : $itemEl.data( 'largesrc' ),
 					title : $itemEl.data( 'title' ),
-					description : $itemEl.data( 'description' )
+					description : $itemEl.data( 'description' ),
+					href2 : $itemEl.data('href2')
 				};
 
 			this.$title.html( eldata.title );
 			this.$description.html( eldata.description );
 			if (settings.showVisitButton === true) {
 				this.$href.attr( 'href', eldata.href );
+				this.$href2.attr( 'href', eldata.href2 );
 			}
 
 			var self = this;
