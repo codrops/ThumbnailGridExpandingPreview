@@ -347,8 +347,8 @@ var Grid = (function() {
 			this.$description = $( '<p></p>' );
 			var detailAppends = [this.$title, this.$description];
 			if (settings.showVisitButton === true) {
-				this.$href = $( '<a href="#">Visit website</a>' );
-				this.$href2 = $( '<a href="#">PDF</a>' );
+				this.$href = $( '<a target="_blank" href="#">Visit website</a>' );
+				this.$href2 = $( '<a target="_blank" href="#">PDF</a>' );
 				detailAppends.push(this.$href, this.$href2);
 			}
 			this.$details = $( '<div class="og-details"></div>' ).append(detailAppends);
