@@ -1,5 +1,5 @@
 /* General Demo Style */
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 html { height: 100%; }
 
@@ -32,7 +32,7 @@ body {
     font-family: 'Lato', Calibri, Arial, sans-serif;
     background: #f9f9f9;
     font-weight: 300;
-    font-size: 15px;
+    font-size: 20px;
     color: #333;
     overflow: scroll;
     overflow-x: hidden;
@@ -82,11 +82,9 @@ a {
 
 /* Header Style */
 .codrops-top {
-	line-height: 24px;
-	font-size: 11px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.5);
-	text-transform: uppercase;
+	line-height: 26px;
+	font-size: 14px;
+	background: #f9845b;
 	z-index: 9999;
 	position: relative;
 	box-shadow: 1px 0px 2px rgba(0,0,0,0.2);
@@ -95,7 +93,7 @@ a {
 .codrops-top a {
 	padding: 0px 10px;
 	letter-spacing: 1px;
-	color: #333;
+	color: #fff;
 	display: inline-block;
 }
 
