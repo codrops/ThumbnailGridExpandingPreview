@@ -47,6 +47,16 @@
 	overflow: hidden;
 }
 
+.glyphicon.glyphicon-menu-left, .glyphicon.glyphicon-menu-right{
+	top: -210px;
+  font-size: 250%;
+  color: black;
+	}
+
+.glyphicon-menu-right{
+	float:right;
+}
+
 .og-expander-inner {
 	padding: 50px 30px;
 	height: 100%;
@@ -90,7 +100,7 @@
 	width: 50%;
 	float: left;
 	height: 100%;
-	overflow: hidden;
+	overflow: scroll;
 	position: relative;
 }
 
@@ -191,5 +201,5 @@
 
 	.og-fullimg { display: none; }
 	.og-details { float: none; width: 100%; }
-	
+
 }

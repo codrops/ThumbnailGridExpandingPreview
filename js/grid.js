@@ -163,12 +163,15 @@ $.fn.imagesLoaded = function( callback ) {
 
 var Grid = (function() {
 		// grid selector
-		var $selector = '#og-grid', 
+		var $selector = '#og-grid',
 		// list of items
 		$grid = $( $selector ),
 		// the items
 		$items = $grid.children( 'li' ),
 		// current expanded item's index
+
+		$itemsArrows = $grid.children( 'li .glyphicon' ),
+
 		current = -1,
 		// position (top) of the expanded item
 		// used to know if the preview will expand in a different row
@@ -199,7 +202,7 @@ var Grid = (function() {
 		};
 
 	function init( config ) {
-		
+
 		// the settings..
 		settings = $.extend( true, {}, settings, config );
 		// preload all images
@@ -247,16 +250,16 @@ var Grid = (function() {
 	}
 
 	function initEvents() {
-		
+
 		// when clicking an item, show the preview with the item´s info and large image.
 		// close the item if already expanded.
 		// also close if clicking on the item´s cross
 		initItemsEvents( $items );
-		
+
 		// on window resize get the window´s size again
 		// reset some values..
 		$window.on( 'debouncedresize', function() {
-			
+
 			scrollExtra = 0;
 			previewPos = -1;
 			// save item´s offset
@@ -283,6 +286,18 @@ var Grid = (function() {
 			return false;
 
 		} );
+		// Find previous item and show that
+		$items.on( 'click', 'span.glyphicon-menu-left', function() {
+			var $item = $(this).closest('li').prev();
+			hidePreview();
+			showPreview($item);
+			} );
+			// Find next item and show that
+		$items.on( 'click', 'span.glyphicon-menu-right', function() {
+			var $item = $(this).closest('li').next();
+			hidePreview();
+			showPreview($item);
+		}) ;
 	}
 
 	function getWinSize() {
@@ -313,7 +328,7 @@ var Grid = (function() {
 				preview.update( $item );
 				return false;
 			}
-			
+
 		}
 
 		// update previewPos
@@ -326,6 +341,7 @@ var Grid = (function() {
 	}
 
 	function hidePreview() {
+
 		current = -1;
 		var preview = $.data( this, 'preview' );
 		preview.close();
@@ -354,7 +370,9 @@ var Grid = (function() {
 			this.$loading = $( '<div class="og-loading"></div>' );
 			this.$fullimage = $( '<div class="og-fullimg"></div>' ).append( this.$loading );
 			this.$closePreview = $( '<span class="og-close"></span>' );
-			this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$fullimage, this.$details );
+			this.$nextPreview = $("<div><a><span class='glyphicon glyphicon-menu-right'></span></a></div>");
+			this.$previousPreview = $('<div><a><span class="glyphicon glyphicon-menu-left"></span></a></div>');
+			this.$previewInner = $( '<div class="og-expander-inner"></div>' ).append( this.$closePreview, this.$fullimage, this.$details, this.$nextPreview, this.$previousPreview );
 			this.$previewEl = $( '<div class="og-expander"></div>' ).append( this.$previewInner );
 			// append preview element to the item
 			this.$item.append( this.getEl() );
@@ -368,7 +386,7 @@ var Grid = (function() {
 			if( $item ) {
 				this.$item = $item;
 			}
-			
+
 			// if already expanded remove class "og-expanded" from current item and add it to new item
 			if( current !== -1 ) {
 				var $currentItem = $items.eq( current );
@@ -397,7 +415,7 @@ var Grid = (function() {
 			}
 
 			var self = this;
-			
+
 			// remove the current image in the preview
 			if( typeof self.$largeImg != 'undefined' ) {
 				self.$largeImg.remove();
@@ -415,13 +433,13 @@ var Grid = (function() {
 						self.$largeImg = $img.fadeIn( 350 );
 						self.$fullimage.append( self.$largeImg );
 					}
-				} ).attr( 'src', eldata.largesrc );	
+				} ).attr( 'src', eldata.largesrc );
 			}
 
 		},
 		open : function() {
 
-			setTimeout( $.proxy( function() {	
+			setTimeout( $.proxy( function() {
 				// set the height for the preview and the item
 				this.setHeights();
 				// scroll to position the preview in the right place
@@ -455,7 +473,7 @@ var Grid = (function() {
 				}
 
 			}, this ), 25 );
-			
+
 			return false;
 
 		},
@@ -501,7 +519,7 @@ var Grid = (function() {
 			var position = this.$item.data( 'offsetTop' ),
 				previewOffsetT = this.$previewEl.offset().top - scrollExtra,
 				scrollVal = this.height + this.$item.data( 'height' ) + marginExpanded <= winsize.height ? position : this.height < winsize.height ? previewOffsetT - ( winsize.height - this.height ) : previewOffsetT;
-			
+
 			$body.animate( { scrollTop : scrollVal }, settings.speed );
 
 		},
@@ -514,9 +532,8 @@ var Grid = (function() {
 		}
 	}
 
-	return { 
+	return {
 		init : init,
 		addItems : addItems
 	};
-
 })();
